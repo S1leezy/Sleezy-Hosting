@@ -3,97 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sleezy Hosting v1.0 – Ultra Smooth</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <title>Sleezy Hosting v1.0 – Run your Minecraft server. Zero hassle.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ========== RESET & BASE – NO ANIMATIONS, NO BLUR, LIGHTNING FAST ========== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: 'Inter', sans-serif;
-      background: #03050b;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0c10;
       color: #eef2ff;
       line-height: 1.5;
-      overflow-x: hidden;
-      /* Force hardware acceleration on body */
+      /* Force GPU layer but no expensive compositing */
       transform: translateZ(0);
-      -webkit-font-smoothing: antialiased;
     }
-    /* No particles, no heavy backdrops everywhere */
-    .glass-card, .feature-card, .step-card, .req-card, .mockup-card, .cta-glass {
-      background: rgba(10, 20, 30, 0.7);
-      backdrop-filter: none; /* Removed for performance */
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      border-radius: 1.5rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      transition: transform 0.2s ease, border-color 0.2s;
-      will-change: transform;
+    /* No transitions, no animations, no hover effects that move elements */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    .feature-card:hover, .step-card:hover, .req-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      border-color: #3b82f6;
-      transition: transform 0.15s ease;
+    /* Flat cards – no glass, no blur, simple borders */
+    .card, .feature-card, .step-card, .req-card, .mockup-card, .cta-box {
+      background: #11161f;
+      border: 1px solid #1f2a3a;
+      border-radius: 1rem;
     }
-    /* Buttons with simple transitions */
+    /* Simple button */
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.6rem;
       background: #3b82f6;
       color: white;
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.8rem 2rem;
-      border-radius: 3rem;
+      padding: 0.75rem 2rem;
+      border-radius: 2rem;
       text-decoration: none;
-      transition: transform 0.1s, background 0.1s;
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
       border: none;
       cursor: pointer;
     }
     .btn-primary:hover {
       background: #2563eb;
-      transform: scale(1.02);
     }
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
-    .btn-outline-light {
+    .btn-outline {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(59,130,246,0.1);
-      border: 1px solid rgba(59,130,246,0.6);
+      background: transparent;
+      border: 1px solid #3b82f6;
       color: #eef2ff;
       padding: 0.7rem 1.6rem;
-      border-radius: 3rem;
+      border-radius: 2rem;
       font-weight: 500;
-      transition: all 0.1s;
       text-decoration: none;
     }
-    .btn-outline-light:hover {
-      background: #3b82f6;
-      transform: translateY(-1px);
+    .btn-outline:hover {
+      background: rgba(59,130,246,0.1);
     }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      position: relative;
-      z-index: 2;
-    }
-    /* Hero section - no animated glow */
+    /* Hero – solid gradient, no animations */
     .hero {
-      position: relative;
-      background: linear-gradient(145deg, #03070f 0%, #0a101c 100%);
-      padding: 5rem 0 6rem;
-      border-bottom: 1px solid rgba(59,130,246,0.2);
+      background: linear-gradient(135deg, #03070f 0%, #0a101c 100%);
+      padding: 4rem 0 5rem;
+      border-bottom: 1px solid #1f2a3a;
     }
     .hero h1 {
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       font-weight: 800;
       line-height: 1.2;
       letter-spacing: -0.02em;
@@ -101,34 +81,35 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #cbd5e6;
       max-width: 550px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
     }
     .version-badge {
-      background: rgba(59,130,246,0.2);
+      background: #1e293b;
       display: inline-block;
       padding: 0.2rem 1rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
       font-weight: 500;
       margin-bottom: 1rem;
-      border: 0.5px solid #3b82f680;
+      color: #3b82f6;
+      border: none;
     }
     /* Features grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.8rem;
-      margin: 3rem 0;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
     }
     .feature-card {
-      padding: 1.6rem;
-      background: rgba(10, 20, 30, 0.6);
+      padding: 1.5rem;
+      background: #11161f;
     }
     .feature-icon {
       font-size: 2rem;
@@ -136,33 +117,40 @@
       margin-bottom: 1rem;
       display: inline-block;
     }
+    .feature-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
     /* Steps */
     .steps-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: 1.5rem;
       justify-content: center;
-      margin: 3rem 0;
+      margin: 2.5rem 0;
     }
     .step-card {
       flex: 1;
       min-width: 200px;
       text-align: center;
-      padding: 1.8rem 1.2rem;
-      background: rgba(10, 20, 30, 0.6);
+      padding: 1.5rem 1rem;
+      background: #11161f;
     }
     .step-number {
       background: #3b82f6;
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       margin: 0 auto 1rem;
-      box-shadow: 0 4px 10px rgba(59,130,246,0.3);
     }
     /* Requirements */
     .reqs-flex {
@@ -173,27 +161,26 @@
       margin: 2rem 0;
     }
     .req-card {
-      padding: 1.2rem 1.8rem;
-      min-width: 140px;
+      padding: 1rem 1.5rem;
+      min-width: 130px;
       text-align: center;
-      background: rgba(10, 20, 30, 0.6);
+      background: #11161f;
     }
     .req-card i {
       font-size: 1.8rem;
       color: #3b82f6;
       margin-bottom: 0.5rem;
     }
-    /* Mockup (static, no tilt) */
+    /* Mockup */
     .mockup-card {
-      padding: 1.5rem;
-      background: rgba(10, 20, 28, 0.8);
-      transition: transform 0.15s;
+      padding: 1.2rem;
+      background: #11161f;
     }
     .app-mockup {
-      background: #0b111c;
-      border-radius: 1.2rem;
+      background: #0a0f16;
+      border-radius: 1rem;
       padding: 1rem;
-      border: 1px solid #1e2a3a;
+      border: 1px solid #1f2a3a;
     }
     .console-line {
       font-family: monospace;
@@ -203,26 +190,26 @@
     .player-chip-mini {
       display: inline-block;
       background: #1a2a3a;
-      border-radius: 30px;
+      border-radius: 2rem;
       padding: 0.2rem 0.7rem;
       font-size: 0.7rem;
       margin: 0.2rem;
     }
     /* Footer */
     footer {
-      border-top: 1px solid rgba(59,130,246,0.2);
+      border-top: 1px solid #1f2a3a;
       background: #03070f;
       padding: 2rem 0;
       margin-top: 3rem;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #94a3b8;
     }
     .section-title {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
     .section-sub {
       text-align: center;
@@ -230,52 +217,55 @@
       max-width: 600px;
       margin: 0 auto 2rem auto;
     }
-    /* No heavy animations, just simple fade-in on scroll (CSS only) */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* No hover transforms, no transitions, no box-shadows */
     .feature-card, .step-card, .req-card {
-      animation: fadeInUp 0.5s ease-out forwards;
-      opacity: 0;
+      transition: none;
     }
-    /* Staggered animations via nth-child (lightweight) */
-    .feature-card:nth-child(1) { animation-delay: 0.05s; }
-    .feature-card:nth-child(2) { animation-delay: 0.1s; }
-    .feature-card:nth-child(3) { animation-delay: 0.15s; }
-    .feature-card:nth-child(4) { animation-delay: 0.2s; }
-    .feature-card:nth-child(5) { animation-delay: 0.25s; }
-    .feature-card:nth-child(6) { animation-delay: 0.3s; }
-    .step-card:nth-child(1) { animation-delay: 0.1s; }
-    .step-card:nth-child(2) { animation-delay: 0.2s; }
-    .step-card:nth-child(3) { animation-delay: 0.3s; }
-    .req-card:nth-child(1) { animation-delay: 0.05s; }
-    .req-card:nth-child(2) { animation-delay: 0.1s; }
-    .req-card:nth-child(3) { animation-delay: 0.15s; }
     /* Responsive */
     @media (max-width: 850px) {
-      .hero h1 { font-size: 2.5rem; }
+      .hero h1 { font-size: 2.2rem; }
       .hero-content { flex-direction: column; }
-      .container { padding: 0 1.5rem; }
-      .features-grid { gap: 1.2rem; }
+      .container { padding: 0 1.2rem; }
     }
-    /* Hardware acceleration for scroll */
-    main, .container, .hero {
-      transform: translateZ(0);
-      backface-visibility: hidden;
+    /* Simple layout spacing */
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-text {
+      flex: 1.2;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .glass-card {
+      background: #11161f;
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid #1f2a3a;
+    }
+    hr {
+      border-color: #1f2a3a;
+      margin: 1rem 0;
     }
   </style>
 </head>
 <body>
 <div class="hero">
-  <div class="container hero-content" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem;">
+  <div class="container hero-content">
     <div class="hero-text">
       <div class="version-badge"><i class="fas fa-cube"></i> v1.0 – Stable & Smooth</div>
       <h1>Run Your Minecraft Server.<br>Zero Hassle.</h1>
       <p>No terminal commands, no Java fights, no config headaches. Just a clean desktop app with one-click controls, RAM slider, player manager, and live console.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+      <div class="btn-group">
         <a href="#" class="btn-primary" id="downloadBtn"><i class="fab fa-windows"></i> Download for Windows</a>
-        <a href="#" class="btn-outline-light"><i class="fab fa-apple"></i> macOS & Linux</a>
+        <a href="#" class="btn-outline"><i class="fab fa-apple"></i> macOS & Linux</a>
       </div>
       <div><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Works with Paper, Forge, Fabric, Vanilla — even your weird modpack</div>
     </div>
@@ -287,7 +277,7 @@
           <div style="width: 12px; height: 12px; background:#22c55e; border-radius: 50%;"></div>
           <span style="margin-left: auto; font-size: 11px; color:#6c86a3;">⚡ SLEEZY v1.0</span>
         </div>
-        <div style="background:#080c14; border-radius: 1rem; padding: 0.8rem;">
+        <div style="background:#0a0f16; border-radius: 1rem; padding: 0.8rem;">
           <div style="display:flex; justify-content:space-between;"><span><i class="fas fa-server"></i> 🟢 Online</span> <span>TPS 20.0</span></div>
           <div style="margin-top:8px;"><i class="fas fa-users"></i> Players: <span id="demoPlayers">4</span>/20 &nbsp; 📦 RAM: 3.2GB / 6GB</div>
           <div class="console-line"><i class="fas fa-terminal"></i> [CONSOLE] User 'Steve' issued: /spawn</div>
@@ -295,14 +285,14 @@
           <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;"><span class="player-chip-mini"><i class="fas fa-crown"></i> Notch</span><span class="player-chip-mini">Steve</span><span class="player-chip-mini">Alex</span><span class="player-chip-mini">Hero</span></div>
         </div>
       </div>
-      <p style="margin-top: 1rem; font-size: 0.7rem; text-align: center;">dashboard: RAM slider, player panel, whitelist & OP controls</p>
+      <p style="margin-top: 0.8rem; font-size: 0.7rem; text-align: center;">dashboard: RAM slider, player panel, whitelist & OP controls</p>
     </div>
   </div>
 </div>
 
 <main>
   <div class="container">
-    <div style="text-align: center; margin: 2rem 0 1rem;">
+    <div style="text-align: center; margin: 2rem 0 0.5rem;">
       <h2 class="section-title">Everything from v1.0, right at your fingertips</h2>
       <p class="section-sub">We packed the app with features that actually make sense — no bloat, just control.</p>
     </div>
@@ -338,16 +328,16 @@
       <div class="req-card"><i class="fab fa-apple"></i><h3>macOS</h3><p>11+ (Intel/M1/M2)<br>4GB rec for modded servers</p></div>
       <div class="req-card"><i class="fab fa-linux"></i><h3>Linux</h3><p>Ubuntu 20.04+, Debian<br>AppImage / .deb</p></div>
     </div>
-    <div class="glass-card" style="padding: 1rem; text-align: center; max-width: 600px; margin: 1rem auto; background: rgba(10,20,30,0.6);">
+    <div class="glass-card" style="text-align: center; max-width: 600px; margin: 1rem auto;">
       <i class="fas fa-check-circle" style="color:#3b82f6;"></i> <strong>Bundled Java runtime</strong> — you don't need to install anything else.
     </div>
   </div>
 
   <div class="container" style="text-align: center; padding: 2rem 0 2rem;">
-    <div class="cta-glass glass-card" style="padding: 2rem; background: rgba(59,130,246,0.08);">
+    <div class="cta-box" style="padding: 2rem; background: #11161f; border-radius: 1rem; border: 1px solid #1f2a3a;">
       <h3 style="font-size: 1.8rem; font-weight: 700;">Ready to stop wrestling with terminals?</h3>
       <p style="margin: 1rem 0; font-size: 1rem;">Thousands of server owners already switched. v1.0 is stable, fast, and actually fun to use.</p>
-      <a href="#" class="btn-primary" style="font-size: 1.1rem; margin-top: 0.5rem;" id="downloadBtn2"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
+      <a href="#" class="btn-primary" style="font-size: 1.1rem;" id="downloadBtn2"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
       <p style="margin-top: 1rem; font-size: 0.7rem;">No ads, no data collection — we hate that stuff too.</p>
     </div>
   </div>
@@ -363,79 +353,54 @@
         <a href="#" style="color:#b9c7dd; text-decoration: none;"><i class="fab fa-github"></i></a>
       </div>
     </div>
-    <hr style="margin: 1rem 0; border-color: #1e293b;">
+    <hr>
     <p>© 2025 Sleezy Hosting — Not affiliated with Mojang. Minecraft is a trademark of Mojang Studios. We just make hosting less painful.</p>
   </div>
 </footer>
 
 <script>
   (function() {
-    // Simple demo: simulate changing player count in mockup without heavy GSAP
+    // Simple interval to update the demo player count – no animation, just text update
     let demoCount = 4;
     const playerSpan = document.getElementById('demoPlayers');
     if (playerSpan) {
       setInterval(() => {
         demoCount = demoCount === 7 ? 3 : demoCount + 1;
         playerSpan.innerText = demoCount;
-        // No animation, just text update for pure smoothness
+        // No extra DOM thrashing
       }, 4000);
     }
 
-    // Download toast (lightweight)
-    function handleDownload(e) {
+    // Download toast (lightweight, minimal DOM impact)
+    function showDownloadToast(e) {
       e.preventDefault();
-      // Remove any existing toast quickly
-      const existing = document.querySelector('.download-toast');
-      if (existing) existing.remove();
-      
-      const toast = document.createElement('div');
-      toast.className = 'download-toast';
+      let toast = document.querySelector('.dl-toast');
+      if (toast) toast.remove();
+      toast = document.createElement('div');
+      toast.className = 'dl-toast';
       toast.innerHTML = '<i class="fas fa-rocket"></i> 🎉 Sleezy Hosting v1.0 installer ready! (demo) Join waitlist for early access.';
-      toast.style.position = 'fixed';
-      toast.style.bottom = '20px';
-      toast.style.left = '50%';
-      toast.style.transform = 'translateX(-50%)';
-      toast.style.background = '#0f172a';
-      toast.style.color = 'white';
-      toast.style.padding = '0.8rem 1.5rem';
-      toast.style.borderRadius = '40px';
-      toast.style.border = '1px solid #3b82f6';
-      toast.style.fontSize = '0.85rem';
-      toast.style.zIndex = '9999';
-      toast.style.fontWeight = '500';
-      toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
-      toast.style.backdropFilter = 'blur(8px)';
+      Object.assign(toast.style, {
+        position: 'fixed',
+        bottom: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: '#0f172a',
+        color: 'white',
+        padding: '0.7rem 1.5rem',
+        borderRadius: '40px',
+        border: '1px solid #3b82f6',
+        fontSize: '0.8rem',
+        zIndex: '9999',
+        fontWeight: '500',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+        backdropFilter: 'none',
+        whiteSpace: 'nowrap'
+      });
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 3000);
     }
-    
-    const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
-    downloadBtns.forEach(btn => btn.addEventListener('click', handleDownload));
-    
-    // Optional: simple scroll reveal using Intersection Observer (lightweight)
-    const fadeElements = document.querySelectorAll('.feature-card, .step-card, .req-card');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px' });
-    fadeElements.forEach(el => {
-      el.style.opacity = '0';
-      observer.observe(el);
-    });
-    // Set initial state for already visible elements
-    window.addEventListener('load', () => {
-      fadeElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          el.style.opacity = '1';
-          observer.unobserve(el);
-        }
-      });
-    });
+    const btns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
+    btns.forEach(btn => btn.addEventListener('click', showDownloadToast));
   })();
 </script>
 </body>
