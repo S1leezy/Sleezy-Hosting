@@ -1,1 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sleezy Hosting v1.0 – Run your Minecraft server. Zero terminal.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #03050b;
+      color: #eef2ff;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    /* particle background */
+    .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .particle {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.35);
+      border-radius: 50%;
+      filter: blur(3px);
+      animation: floatParticle linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+    /* glassmorphism core */
+    .glass-card, .feature-card, .step-card, .req-card, .mockup-card, .cta-glass {
+      background: rgba(10, 20, 30, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(59, 130, 246, 0.2);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .feature-card:hover, .step-card:hover, .req-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #3b82f6;
+      box-shadow: 0 30px 45px -12px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.7);
+      background: rgba(15, 30, 45, 0.7);
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px -6px #3b82f6;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px -8px #3b82f6;
+      filter: brightness(1.05);
+    }
+    .btn-outline-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(59,130,246,0.1);
+      border: 1.5px solid rgba(59, 130, 246, 0.7);
+      color: #eef2ff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      transition: 0.25s;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline-light:hover {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59,130,246,0.4);
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+    /* Hero insane */
+    .hero {
+      position: relative;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.25), transparent 70%),
+                  radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.2), transparent 60%),
+                  linear-gradient(145deg, #03070f 0%, #0a101c 100%);
+      padding: 6rem 0 7rem;
+      border-bottom: 1px solid rgba(59,130,246,0.3);
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: #3b82f6;
+      filter: blur(100px);
+      opacity: 0.15;
+      border-radius: 50%;
+      animation: pulseGlow 6s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { opacity: 0.08; transform: scale(0.9);}
+      100% { opacity: 0.2; transform: scale(1.2);}
+    }
+    .hero h1 {
+      font-size: 4.2rem;
+      font-weight: 900;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #FFFFFF, #a0c4ff, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+    }
+    .hero p { font-size: 1.25rem; color: #cbd5e6; max-width: 550px; }
+    .version-badge {
+      background: rgba(59,130,246,0.2);
+      backdrop-filter: blur(8px);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      border: 0.5px solid #3b82f6;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .feature-card { padding: 1.8rem; transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.2); }
+    .feature-icon { font-size: 2.4rem; color: #3b82f6; margin-bottom: 1rem; transition: transform 0.3s; display: inline-block; }
+    .feature-card:hover .feature-icon { transform: scale(1.1) rotate(3deg); }
+    .steps-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 3rem 0; }
+    .step-card { flex: 1; min-width: 220px; text-align: center; padding: 2rem 1.2rem; }
+    .step-number {
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; font-weight: 800; font-size: 1.8rem; margin: 0 auto 1.2rem;
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.3), 0 0 0 8px rgba(59,130,246,0.1);
+      transition: all 0.3s;
+    }
+    .step-card:hover .step-number { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(59,130,246,0.5); }
+    .reqs-flex { display: flex; flex-wrap: wrap; gap: 1.8rem; justify-content: center; margin: 2rem 0; }
+    .req-card { padding: 1.5rem 2rem; min-width: 150px; text-align: center; transition: all 0.3s; }
+    footer { border-top: 1px solid rgba(59,130,246,0.3); background: #03050fcc; backdrop-filter: blur(12px); padding: 2rem 0; margin-top: 3rem; }
+    .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; letter-spacing: -0.02em; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-item { animation: fadeInUp 0.7s ease forwards; opacity: 0; }
+    @media (max-width: 850px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero-content { flex-direction: column; }
+    }
+    .mockup-card { padding: 1.8rem; transition: transform 0.2s; }
+    .mockup-card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+    .app-mockup { background: #0b111c; border-radius: 1.5rem; padding: 1rem; border: 1px solid #1e2a3a; }
+    .player-chip-mini {
+      display: inline-block;
+      background: #1a2a3a;
+      border-radius: 30px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.7rem;
+      margin: 0.2rem;
+    }
+    .console-line {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #8bc34a;
+    }
+  </style>
+</head>
+<body>
+<div class="particles" id="particleContainer"></div>
+<div class="hero">
+  <div class="hero-glow" style="left: -100px; top: -100px;"></div>
+  <div class="hero-glow" style="right: -50px; bottom: -80px; width: 500px; height: 500px; animation-duration: 8s;"></div>
+  <div class="container hero-content" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3rem;">
+    <div class="hero-text">
+      <div class="version-badge"><i class="fas fa-cube"></i> v1.0 – Now stable</div>
+      <h1>Run Your Minecraft Server.<br>Zero Hassle.</h1>
+      <p>No terminal commands, no Java fights, no `server.properties` headaches. Just a clean desktop app with one-click start, RAM slider, player manager, and live console. Version 1.0 is here — and it's buttery smooth.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 2rem 0;">
+        <a href="#" class="btn-primary" id="downloadBtn"><i class="fab fa-windows"></i> Download for Windows</a>
+        <a href="#" class="btn-outline-light"><i class="fab fa-apple"></i> macOS & Linux</a>
+      </div>
+      <div><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Works with Paper, Forge, Fabric, Vanilla — even your weird modpack</div>
+    </div>
+    <div class="mockup-card" style="flex: 0.9;">
+      <div class="app-mockup">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <div style="width: 12px; height: 12px; background:#3b82f6; border-radius: 50%;"></div>
+          <div style="width: 12px; height: 12px; background:#6b7280; border-radius: 50%;"></div>
+          <div style="width: 12px; height: 12px; background:#22c55e; border-radius: 50%;"></div>
+          <span style="margin-left: auto; font-size: 11px; color:#6c86a3;">⚡ SLEEZY v1.0</span>
+        </div>
+        <div style="background:#080c14; border-radius: 1rem; padding: 0.8rem;">
+          <div style="display:flex; justify-content:space-between;"><span><i class="fas fa-server"></i> 🟢 Online</span> <span>TPS 20.0</span></div>
+          <div style="margin-top:8px;"><i class="fas fa-users"></i> Players: <span id="demoPlayers">4</span>/20 &nbsp; 📦 RAM: 3.2GB / 6GB</div>
+          <div class="console-line"><i class="fas fa-terminal"></i> [CONSOLE] User 'Steve' issued: /spawn</div>
+          <div style="margin-top:8px;"><i class="fas fa-edit"></i> MOTD preview: <span style="color:#3b82f6;">"&6Sleezy &lCraft"</span> → Gold Bold</div>
+          <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;"><span class="player-chip-mini"><i class="fas fa-crown"></i> Notch</span><span class="player-chip-mini">Steve</span><span class="player-chip-mini">Alex</span><span class="player-chip-mini">Hero</span></div>
+        </div>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.7rem; text-align: center;">dashboard: RAM slider, player panel, whitelist & OP controls</p>
+    </div>
+  </div>
+</div>
 
+<main>
+  <div class="container">
+    <div style="text-align: center; margin: 2rem 0 1rem;">
+      <h2 class="section-title">Everything from v1.0, right at your fingertips</h2>
+      <p class="section-sub" style="color:#9ca9c0; max-width: 600px; margin: 0 auto;">We packed the app with features that actually make sense — no bloat, just control.</p>
+    </div>
+    <div class="features-grid" id="featuresGrid">
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-sliders-h"></i></div><h3>RAM slider (256MB – 8GB+)</h3><p>Drag to allocate memory. Instantly change without terminal flags. Live preview of total RAM.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-user-friends"></i></div><h3>Player manager panel</h3><p>Click any player → heal, feed, gamemode, kick, ban or OP/deop. One click magic.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-scroll"></i></div><h3>MOTD editor + live preview</h3><p>Color buttons & format toggles (bold, italic, magic). See exactly how it looks in the player list.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-code"></i></div><h3>Live console & logs viewer</h3><p>Color-coded console, send commands instantly, view latest logs without opening a text editor.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-crown"></i></div><h3>OP / Whitelist controls</h3><p>Add operators with level selector, whitelist players with a click — no file editing.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div><h3>Mod/plugin drag & drop</h3><p>Drag a .jar into the app window. Installs to right folder. Zero folder hunting.</p></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div style="text-align: center;">
+      <h2 class="section-title">How the hell does it work?</h2>
+      <p class="section-sub">Three embarrassingly simple steps.</p>
+    </div>
+    <div class="steps-grid" id="stepsGrid">
+      <div class="step-card"><div class="step-number">1</div><h3>Download & pick a folder</h3><p>Install Sleezy Hosting v1.0, click "Browse" and select your server directory (or create a new one).</p></div>
+      <div class="step-card"><div class="step-number">2</div><h3>Tweak your vibe</h3><p>Set RAM, MOTD with colors, max players, whitelist, OP list — all from the dashboard.</p></div>
+      <div class="step-card"><div class="step-number">3</div><h3>Start & invite the crew</h3><p>Hit start, share your IP, manage players in real-time from the panel. Done.</p></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div style="text-align: center;">
+      <h2 class="section-title">Runs on your potato (and your gaming rig)</h2>
+      <p class="section-sub">Lightweight, cross‑platform, and no Java required.</p>
+    </div>
+    <div class="reqs-flex" id="reqsFlex">
+      <div class="req-card"><i class="fab fa-windows fa-2x"></i><h3>Windows</h3><p>10 / 11, 64-bit<br>2GB RAM (4GB rec)</p></div>
+      <div class="req-card"><i class="fab fa-apple fa-2x"></i><h3>macOS</h3><p>11+ (Intel/M1/M2)<br>4GB rec for modded servers</p></div>
+      <div class="req-card"><i class="fab fa-linux fa-2x"></i><h3>Linux</h3><p>Ubuntu 20.04+, Debian<br>AppImage / .deb</p></div>
+    </div>
+    <div class="glass-card" style="padding: 1.2rem; text-align: center; max-width: 650px; margin: 1.5rem auto;">
+      <i class="fas fa-check-circle" style="color:#3b82f6;"></i> <strong>Bundled Java runtime</strong> — you don't need to install anything else.
+    </div>
+  </div>
+
+  <div class="container" style="text-align: center; padding: 2rem 0 2rem;">
+    <div class="cta-glass glass-card" style="padding: 2.5rem; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(0,0,0,0.4)); backdrop-filter: blur(16px);">
+      <h3 style="font-size: 2rem; font-weight: 800;">Ready to stop wrestling with terminals?</h3>
+      <p style="margin: 1rem 0; font-size: 1.1rem;">Thousands of server owners already switched. v1.0 is stable, fast, and actually fun to use.</p>
+      <a href="#" class="btn-primary" style="font-size: 1.2rem;" id="downloadBtn2"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
+      <p style="margin-top: 1rem; font-size: 0.75rem;">No ads, no data collection — we hate that stuff too.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+      <div><i class="fas fa-cubes" style="color:#3b82f6;"></i> <strong>Sleezy Hosting v1.0</strong> — because hosting shouldn't feel like homework.</div>
+      <div style="display: flex; gap: 1.8rem;">
+        <a href="#" style="color:#b9c7dd;"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="color:#b9c7dd;"><i class="fab fa-discord"></i></a>
+        <a href="#" style="color:#b9c7dd;"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <hr style="margin: 1.5rem 0; border-color: #1e293b;">
+    <p>© 2025 Sleezy Hosting — Not affiliated with Mojang. Minecraft is a trademark of Mojang Studios. We just make hosting less painful. Version 1.0 — production ready.</p>
+  </div>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  // particles
+  function createParticles() {
+    const container = document.getElementById('particleContainer');
+    for (let i = 0; i < 85; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 6 + 2;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = Math.random() * 12 + 6 + 's';
+      particle.style.animationDelay = Math.random() * 10 + 's';
+      particle.style.background = `rgba(59, 130, 246, ${Math.random() * 0.4 + 0.1})`;
+      container.appendChild(particle);
+    }
+  }
+  createParticles();
+
+  // animate on scroll
+  const animateElements = (elements, staggerVal) => {
+    if (!elements.length) return;
+    gsap.fromTo(elements, 
+      { opacity: 0, y: 40, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: staggerVal, scrollTrigger: {
+          trigger: elements[0]?.parentElement,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+  };
+  const features = document.querySelectorAll('.feature-card');
+  const steps = document.querySelectorAll('.step-card');
+  const reqs = document.querySelectorAll('.req-card');
+  const mockup = document.querySelector('.mockup-card');
+  const heroText = document.querySelector('.hero-text');
+  if (features.length) animateElements(features, 0.08);
+  if (steps.length) animateElements(steps, 0.12);
+  if (reqs.length) animateElements(reqs, 0.07);
+  gsap.fromTo(mockup, { opacity: 0, x: 50, rotationY: 10 }, { opacity: 1, x: 0, rotationY: 0, duration: 0.9, scrollTrigger: { trigger: mockup, start: "top 80%" } });
+  gsap.fromTo(heroText, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.2 });
+  // floating glow
+  gsap.to('.hero-glow', { x: "random(-30, 30)", y: "random(-20, 20)", duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  // hover animations
+  const allCards = document.querySelectorAll('.feature-card, .step-card, .req-card');
+  allCards.forEach(card => {
+    card.addEventListener('mouseenter', () => gsap.to(card, { duration: 0.2, boxShadow: "0 30px 40px -12px rgba(59,130,246,0.6)", borderColor: "#3b82f6" }));
+    card.addEventListener('mouseleave', () => gsap.to(card, { duration: 0.3, boxShadow: "0 20px 35px -12px rgba(0,0,0,0.4)", borderColor: "rgba(59, 130, 246, 0.3)" }));
+  });
+  // mockup 3d tilt
+  if(mockup) {
+    mockup.addEventListener('mousemove', (e) => {
+      const rect = mockup.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      gsap.to(mockup, { rotationY: x * 8, rotationX: y * -6, duration: 0.5, transformPerspective: 800, ease: "power2.out" });
+    });
+    mockup.addEventListener('mouseleave', () => gsap.to(mockup, { rotationY: 0, rotationX: 0, duration: 0.7, ease: "elastic.out" }));
+  }
+  // Simulate changing player count in the mockup to show liveness
+  let demoCount = 4;
+  const playerSpan = document.getElementById('demoPlayers');
+  if (playerSpan) {
+    setInterval(() => {
+      demoCount = demoCount === 7 ? 3 : demoCount + 1;
+      playerSpan.innerText = demoCount;
+      gsap.to(playerSpan, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
+    }, 3800);
+  }
+  // download toast with version info
+  function handleDownload(e) {
+    e.preventDefault();
+    const toast = document.createElement('div');
+    toast.innerHTML = '<i class="fas fa-rocket" style="margin-right: 10px;"></i> 🎉 Sleezy Hosting v1.0 installer ready! (demo) The real build is cooking — join the waitlist for early access.';
+    toast.style.position = 'fixed';
+    toast.style.bottom = '30px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.background = '#0f172ad9';
+    toast.style.backdropFilter = 'blur(20px)';
+    toast.style.padding = '1rem 2rem';
+    toast.style.borderRadius = '60px';
+    toast.style.border = '1px solid #3b82f6';
+    toast.style.fontWeight = '500';
+    toast.style.zIndex = '9999';
+    toast.style.color = 'white';
+    toast.style.fontSize = '0.9rem';
+    toast.style.boxShadow = '0 0 30px rgba(59,130,246,0.6)';
+    document.body.appendChild(toast);
+    gsap.fromTo(toast, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out" });
+    setTimeout(() => {
+      gsap.to(toast, { opacity: 0, y: 30, duration: 0.3, onComplete: () => toast.remove() });
+    }, 3200);
+  }
+  const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
+  downloadBtns.forEach(btn => btn.addEventListener('click', handleDownload));
+  // Animate section titles glow
+  gsap.utils.toArray('.section-title').forEach(title => {
+    gsap.fromTo(title, { textShadow: "0 0 0px #3b82f6" }, { textShadow: "0 0 12px #3b82f6", duration: 1, scrollTrigger: { trigger: title, start: "top 80%", toggleActions: "play none none reverse" } });
+  });
+  // extra: version badge pulse
+  const badge = document.querySelector('.version-badge');
+  if(badge) {
+    gsap.to(badge, { scale: 1.05, duration: 1.2, repeat: -1, yoyo: true, ease: "power1.inOut" });
+  }
+  console.log("🔥 Sleezy Hosting v1.0 — marketing site with app-realistic features & insane animations");
+</script>
+</body>
+</html>
