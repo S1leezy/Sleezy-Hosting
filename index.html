@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sleezy Hosting v1.0 – Smooth Animations, Zero Lag</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <title>Sleezy Hosting v1.0 – Animated | Run Minecraft Server</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -17,28 +17,71 @@
       background: #0a0c10;
       color: #eef2ff;
       line-height: 1.5;
-      /* GPU acceleration for smooth scrolling and transforms */
       transform: translateZ(0);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     .container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 2rem;
     }
-    /* ========== CARDS WITH SMOOTH HOVER ========== */
-    .card, .feature-card, .step-card, .req-card, .mockup-card, .cta-box {
+    /* ========== ANIMATIONS ========== */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
+      100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    /* Base card styles with hardware acceleration */
+    .feature-card, .step-card, .req-card, .mockup-card, .cta-box, .glass-card {
       background: #11161f;
       border: 1px solid #1f2a3a;
       border-radius: 1rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       will-change: transform;
+      transform: translateZ(0);
     }
+    /* Hover animations */
     .feature-card:hover, .step-card:hover, .req-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px) scale(1.02);
       border-color: #3b82f6;
+      box-shadow: 0 20px 30px -12px rgba(59,130,246,0.2);
     }
-    /* Buttons with subtle hover */
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(3deg);
+    }
+    .mockup-card:hover {
+      transform: translateY(-6px);
+    }
+    /* Icon hover */
+    .feature-icon {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    /* Buttons with pulse */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -52,14 +95,31 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
     .btn-primary:hover {
       background: #2563eb;
-      transform: scale(1.02);
+      transform: scale(1.03);
+      animation: pulse 1.2s infinite;
     }
     .btn-primary:active {
       transform: scale(0.98);
+    }
+    /* Shimmer effect on button */
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn-primary:hover::after {
+      left: 100%;
     }
     .btn-outline {
       display: inline-flex;
@@ -72,28 +132,56 @@
       border-radius: 2rem;
       font-weight: 500;
       text-decoration: none;
-      transition: background 0.15s, transform 0.1s;
+      transition: all 0.2s;
     }
     .btn-outline:hover {
-      background: rgba(59,130,246,0.1);
-      transform: translateY(-1px);
+      background: rgba(59,130,246,0.15);
+      transform: translateY(-2px);
+      border-color: #60a5fa;
     }
-    /* Hero section – static gradient background (no animation) */
+    /* Hero with animated gradient background */
     .hero {
-      background: linear-gradient(135deg, #03070f 0%, #0a101c 100%);
+      background: linear-gradient(135deg, #03070f, #0a101c, #0f172a);
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
       padding: 4rem 0 5rem;
       border-bottom: 1px solid #1f2a3a;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Floating orbs background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(59,130,246,0.15), transparent);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      animation: floatSlow 12s infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(59,130,246,0.1), transparent);
+      border-radius: 50%;
+      bottom: -50px;
+      left: -50px;
+      animation: float 10s infinite reverse;
     }
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 800;
       line-height: 1.2;
-      letter-spacing: -0.02em;
-      background: linear-gradient(to right, #ffffff, #a0c4ff);
+      background: linear-gradient(135deg, #ffffff, #a0c4ff, #3b82f6);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       margin-bottom: 1rem;
+      animation: fadeInScale 0.6s ease-out;
     }
     .hero p {
       font-size: 1.1rem;
@@ -111,6 +199,7 @@
       margin-bottom: 1rem;
       color: #3b82f6;
       border: none;
+      animation: pulse 2s infinite;
     }
     /* Features grid */
     .features-grid {
@@ -121,21 +210,7 @@
     }
     .feature-card {
       padding: 1.5rem;
-      background: #11161f;
-    }
-    .feature-icon {
-      font-size: 2rem;
-      color: #3b82f6;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    .feature-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .feature-card p {
-      font-size: 0.85rem;
-      color: #9ca3af;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
     }
     /* Steps */
     .steps-grid {
@@ -150,19 +225,24 @@
       min-width: 200px;
       text-align: center;
       padding: 1.5rem 1rem;
-      background: #11161f;
     }
     .step-number {
       background: #3b82f6;
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
       font-weight: 700;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin: 0 auto 1rem;
+      transition: transform 0.2s;
+      animation: pulse 2s infinite;
+    }
+    .step-card:hover .step-number {
+      transform: scale(1.1);
+      animation: none;
     }
     /* Requirements */
     .reqs-flex {
@@ -176,21 +256,21 @@
       padding: 1rem 1.5rem;
       min-width: 130px;
       text-align: center;
-      background: #11161f;
     }
     .req-card i {
       font-size: 1.8rem;
       color: #3b82f6;
       margin-bottom: 0.5rem;
+      transition: transform 0.2s;
+    }
+    .req-card:hover i {
+      transform: translateY(-4px);
     }
     /* Mockup card */
     .mockup-card {
       padding: 1.2rem;
-      background: #11161f;
-      transition: transform 0.2s ease;
-    }
-    .mockup-card:hover {
-      transform: translateY(-3px);
+      transition: transform 0.3s ease;
+      animation: floatSlow 6s infinite ease-in-out;
     }
     .app-mockup {
       background: #0a0f16;
@@ -210,6 +290,11 @@
       padding: 0.2rem 0.7rem;
       font-size: 0.7rem;
       margin: 0.2rem;
+      transition: all 0.1s;
+    }
+    .player-chip-mini:hover {
+      background: #3b82f6;
+      transform: scale(1.05);
     }
     /* Footer */
     footer {
@@ -233,16 +318,32 @@
       max-width: 600px;
       margin: 0 auto 2rem auto;
     }
-    /* ========== SCROLL REVEAL ANIMATION (Lightweight) ========== */
+    /* Scroll reveal animation */
     .fade-up {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       will-change: opacity, transform;
     }
     .fade-up.revealed {
       opacity: 1;
       transform: translateY(0);
+    }
+    /* Lightweight particle system (few particles) */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      background: #3b82f6;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: floatParticle linear infinite;
+      z-index: 0;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-20vh) translateX(40px) rotate(360deg); opacity: 0; }
     }
     /* Responsive */
     @media (max-width: 850px) {
@@ -259,6 +360,8 @@
     }
     .hero-text {
       flex: 1.2;
+      position: relative;
+      z-index: 2;
     }
     .btn-group {
       display: flex;
@@ -279,6 +382,9 @@
   </style>
 </head>
 <body>
+<!-- Lightweight background particles -->
+<div id="particles"></div>
+
 <div class="hero">
   <div class="container hero-content">
     <div class="hero-text fade-up">
@@ -294,7 +400,7 @@
     <div class="mockup-card fade-up" style="flex: 0.9;">
       <div class="app-mockup">
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-          <div style="width: 12px; height: 12px; background:#3b82f6; border-radius: 50%;"></div>
+          <div style="width: 12px; height: 12px; background:#3b82f6; border-radius: 50%; animation: pulse 1.5s infinite;"></div>
           <div style="width: 12px; height: 12px; background:#6b7280; border-radius: 50%;"></div>
           <div style="width: 12px; height: 12px; background:#22c55e; border-radius: 50%;"></div>
           <span style="margin-left: auto; font-size: 11px; color:#6c86a3;">⚡ SLEEZY v1.0</span>
@@ -370,9 +476,9 @@
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
       <div><i class="fas fa-cubes" style="color:#3b82f6;"></i> <strong>Sleezy Hosting v1.0</strong> — because hosting shouldn't feel like homework.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="#" style="color:#b9c7dd; text-decoration: none;"><i class="fab fa-twitter"></i></a>
-        <a href="#" style="color:#b9c7dd; text-decoration: none;"><i class="fab fa-discord"></i></a>
-        <a href="#" style="color:#b9c7dd; text-decoration: none;"><i class="fab fa-github"></i></a>
+        <a href="#" style="color:#b9c7dd; text-decoration: none; transition: transform 0.2s;"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="color:#b9c7dd; text-decoration: none; transition: transform 0.2s;"><i class="fab fa-discord"></i></a>
+        <a href="#" style="color:#b9c7dd; text-decoration: none; transition: transform 0.2s;"><i class="fab fa-github"></i></a>
       </div>
     </div>
     <hr>
@@ -382,29 +488,51 @@
 
 <script>
   (function() {
-    // Lightweight scroll reveal using Intersection Observer (GPU-friendly)
+    // Scroll reveal with Intersection Observer (smooth)
     const fadeElements = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          observer.unobserve(entry.target); // stop observing once revealed
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
     fadeElements.forEach(el => observer.observe(el));
 
-    // Simulate player count change in mockup (simple text update, no animation loop)
+    // Animated player count in mockup
     let demoCount = 4;
     const playerSpan = document.getElementById('demoPlayers');
     if (playerSpan) {
       setInterval(() => {
         demoCount = demoCount === 7 ? 3 : demoCount + 1;
         playerSpan.innerText = demoCount;
-      }, 4000);
+        // tiny scale pop animation
+        playerSpan.style.transform = 'scale(1.1)';
+        setTimeout(() => { playerSpan.style.transform = ''; }, 150);
+      }, 3500);
     }
 
-    // Download toast (minimal DOM)
+    // Lightweight background particles (few, performant)
+    function createParticles() {
+      const container = document.getElementById('particles');
+      if (!container) return;
+      for (let i = 0; i < 35; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.opacity = Math.random() * 0.3 + 0.1;
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+
+    // Download toast with animation
     function showDownloadToast(e) {
       e.preventDefault();
       let existing = document.querySelector('.dl-toast');
@@ -426,13 +554,27 @@
         zIndex: '9999',
         fontWeight: '500',
         whiteSpace: 'nowrap',
-        backdropFilter: 'none'
+        animation: 'fadeInScale 0.2s ease'
       });
       document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) scale(0.9)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
     const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
     downloadBtns.forEach(btn => btn.addEventListener('click', showDownloadToast));
+
+    // Add hover animation for footer icons
+    document.querySelectorAll('footer a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        link.style.transform = 'translateY(-3px)';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.transform = '';
+      });
+    });
   })();
 </script>
 </body>
