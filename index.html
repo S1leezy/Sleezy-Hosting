@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sleezy Hosting v1.0 – Run your Minecraft server. Zero hassle.</title>
+  <title>Sleezy Hosting v1.0 – Smooth Animations, Zero Lag</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ========== RESET & BASE – NO ANIMATIONS, NO BLUR, LIGHTNING FAST ========== */
     * {
       margin: 0;
       padding: 0;
@@ -18,22 +17,28 @@
       background: #0a0c10;
       color: #eef2ff;
       line-height: 1.5;
-      /* Force GPU layer but no expensive compositing */
+      /* GPU acceleration for smooth scrolling and transforms */
       transform: translateZ(0);
+      -webkit-font-smoothing: antialiased;
     }
-    /* No transitions, no animations, no hover effects that move elements */
     .container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 2rem;
     }
-    /* Flat cards – no glass, no blur, simple borders */
+    /* ========== CARDS WITH SMOOTH HOVER ========== */
     .card, .feature-card, .step-card, .req-card, .mockup-card, .cta-box {
       background: #11161f;
       border: 1px solid #1f2a3a;
       border-radius: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      will-change: transform;
     }
-    /* Simple button */
+    .feature-card:hover, .step-card:hover, .req-card:hover {
+      transform: translateY(-3px);
+      border-color: #3b82f6;
+    }
+    /* Buttons with subtle hover */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -47,9 +52,14 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
     }
     .btn-primary:hover {
       background: #2563eb;
+      transform: scale(1.02);
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
     }
     .btn-outline {
       display: inline-flex;
@@ -62,11 +72,13 @@
       border-radius: 2rem;
       font-weight: 500;
       text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
     }
     .btn-outline:hover {
       background: rgba(59,130,246,0.1);
+      transform: translateY(-1px);
     }
-    /* Hero – solid gradient, no animations */
+    /* Hero section – static gradient background (no animation) */
     .hero {
       background: linear-gradient(135deg, #03070f 0%, #0a101c 100%);
       padding: 4rem 0 5rem;
@@ -171,10 +183,14 @@
       color: #3b82f6;
       margin-bottom: 0.5rem;
     }
-    /* Mockup */
+    /* Mockup card */
     .mockup-card {
       padding: 1.2rem;
       background: #11161f;
+      transition: transform 0.2s ease;
+    }
+    .mockup-card:hover {
+      transform: translateY(-3px);
     }
     .app-mockup {
       background: #0a0f16;
@@ -217,9 +233,16 @@
       max-width: 600px;
       margin: 0 auto 2rem auto;
     }
-    /* No hover transforms, no transitions, no box-shadows */
-    .feature-card, .step-card, .req-card {
-      transition: none;
+    /* ========== SCROLL REVEAL ANIMATION (Lightweight) ========== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
+    }
+    .fade-up.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
     /* Responsive */
     @media (max-width: 850px) {
@@ -227,7 +250,6 @@
       .hero-content { flex-direction: column; }
       .container { padding: 0 1.2rem; }
     }
-    /* Simple layout spacing */
     .hero-content {
       display: flex;
       flex-wrap: wrap;
@@ -259,7 +281,7 @@
 <body>
 <div class="hero">
   <div class="container hero-content">
-    <div class="hero-text">
+    <div class="hero-text fade-up">
       <div class="version-badge"><i class="fas fa-cube"></i> v1.0 – Stable & Smooth</div>
       <h1>Run Your Minecraft Server.<br>Zero Hassle.</h1>
       <p>No terminal commands, no Java fights, no config headaches. Just a clean desktop app with one-click controls, RAM slider, player manager, and live console.</p>
@@ -269,7 +291,7 @@
       </div>
       <div><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Works with Paper, Forge, Fabric, Vanilla — even your weird modpack</div>
     </div>
-    <div class="mockup-card" style="flex: 0.9;">
+    <div class="mockup-card fade-up" style="flex: 0.9;">
       <div class="app-mockup">
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
           <div style="width: 12px; height: 12px; background:#3b82f6; border-radius: 50%;"></div>
@@ -293,48 +315,48 @@
 <main>
   <div class="container">
     <div style="text-align: center; margin: 2rem 0 0.5rem;">
-      <h2 class="section-title">Everything from v1.0, right at your fingertips</h2>
-      <p class="section-sub">We packed the app with features that actually make sense — no bloat, just control.</p>
+      <h2 class="section-title fade-up">Everything from v1.0, right at your fingertips</h2>
+      <p class="section-sub fade-up">We packed the app with features that actually make sense — no bloat, just control.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-sliders-h"></i></div><h3>RAM slider (256MB – 8GB+)</h3><p>Drag to allocate memory. Instantly change without terminal flags. Live preview of total RAM.</p></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-user-friends"></i></div><h3>Player manager panel</h3><p>Click any player → heal, feed, gamemode, kick, ban or OP/deop. One click magic.</p></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-scroll"></i></div><h3>MOTD editor + live preview</h3><p>Color buttons & format toggles (bold, italic, magic). See exactly how it looks in the player list.</p></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-code"></i></div><h3>Live console & logs viewer</h3><p>Color-coded console, send commands instantly, view latest logs without opening a text editor.</p></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-crown"></i></div><h3>OP / Whitelist controls</h3><p>Add operators with level selector, whitelist players with a click — no file editing.</p></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div><h3>Mod/plugin drag & drop</h3><p>Drag a .jar into the app window. Installs to right folder. Zero folder hunting.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-sliders-h"></i></div><h3>RAM slider (256MB – 8GB+)</h3><p>Drag to allocate memory. Instantly change without terminal flags. Live preview of total RAM.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-user-friends"></i></div><h3>Player manager panel</h3><p>Click any player → heal, feed, gamemode, kick, ban or OP/deop. One click magic.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-scroll"></i></div><h3>MOTD editor + live preview</h3><p>Color buttons & format toggles (bold, italic, magic). See exactly how it looks in the player list.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-code"></i></div><h3>Live console & logs viewer</h3><p>Color-coded console, send commands instantly, view latest logs without opening a text editor.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-crown"></i></div><h3>OP / Whitelist controls</h3><p>Add operators with level selector, whitelist players with a click — no file editing.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div><h3>Mod/plugin drag & drop</h3><p>Drag a .jar into the app window. Installs to right folder. Zero folder hunting.</p></div>
     </div>
   </div>
 
   <div class="container">
     <div style="text-align: center;">
-      <h2 class="section-title">How the hell does it work?</h2>
-      <p class="section-sub">Three embarrassingly simple steps.</p>
+      <h2 class="section-title fade-up">How the hell does it work?</h2>
+      <p class="section-sub fade-up">Three embarrassingly simple steps.</p>
     </div>
     <div class="steps-grid">
-      <div class="step-card"><div class="step-number">1</div><h3>Download & pick a folder</h3><p>Install Sleezy Hosting v1.0, click "Browse" and select your server directory (or create a new one).</p></div>
-      <div class="step-card"><div class="step-number">2</div><h3>Tweak your vibe</h3><p>Set RAM, MOTD with colors, max players, whitelist, OP list — all from the dashboard.</p></div>
-      <div class="step-card"><div class="step-number">3</div><h3>Start & invite the crew</h3><p>Hit start, share your IP, manage players in real-time from the panel. Done.</p></div>
+      <div class="step-card fade-up"><div class="step-number">1</div><h3>Download & pick a folder</h3><p>Install Sleezy Hosting v1.0, click "Browse" and select your server directory (or create a new one).</p></div>
+      <div class="step-card fade-up"><div class="step-number">2</div><h3>Tweak your vibe</h3><p>Set RAM, MOTD with colors, max players, whitelist, OP list — all from the dashboard.</p></div>
+      <div class="step-card fade-up"><div class="step-number">3</div><h3>Start & invite the crew</h3><p>Hit start, share your IP, manage players in real-time from the panel. Done.</p></div>
     </div>
   </div>
 
   <div class="container">
     <div style="text-align: center;">
-      <h2 class="section-title">Runs on your potato (and your gaming rig)</h2>
-      <p class="section-sub">Lightweight, cross‑platform, and no Java required.</p>
+      <h2 class="section-title fade-up">Runs on your potato (and your gaming rig)</h2>
+      <p class="section-sub fade-up">Lightweight, cross‑platform, and no Java required.</p>
     </div>
     <div class="reqs-flex">
-      <div class="req-card"><i class="fab fa-windows"></i><h3>Windows</h3><p>10 / 11, 64-bit<br>2GB RAM (4GB rec)</p></div>
-      <div class="req-card"><i class="fab fa-apple"></i><h3>macOS</h3><p>11+ (Intel/M1/M2)<br>4GB rec for modded servers</p></div>
-      <div class="req-card"><i class="fab fa-linux"></i><h3>Linux</h3><p>Ubuntu 20.04+, Debian<br>AppImage / .deb</p></div>
+      <div class="req-card fade-up"><i class="fab fa-windows"></i><h3>Windows</h3><p>10 / 11, 64-bit<br>2GB RAM (4GB rec)</p></div>
+      <div class="req-card fade-up"><i class="fab fa-apple"></i><h3>macOS</h3><p>11+ (Intel/M1/M2)<br>4GB rec for modded servers</p></div>
+      <div class="req-card fade-up"><i class="fab fa-linux"></i><h3>Linux</h3><p>Ubuntu 20.04+, Debian<br>AppImage / .deb</p></div>
     </div>
-    <div class="glass-card" style="text-align: center; max-width: 600px; margin: 1rem auto;">
+    <div class="glass-card fade-up" style="text-align: center; max-width: 600px; margin: 1rem auto;">
       <i class="fas fa-check-circle" style="color:#3b82f6;"></i> <strong>Bundled Java runtime</strong> — you don't need to install anything else.
     </div>
   </div>
 
   <div class="container" style="text-align: center; padding: 2rem 0 2rem;">
-    <div class="cta-box" style="padding: 2rem; background: #11161f; border-radius: 1rem; border: 1px solid #1f2a3a;">
+    <div class="cta-box fade-up" style="padding: 2rem; background: #11161f; border-radius: 1rem; border: 1px solid #1f2a3a;">
       <h3 style="font-size: 1.8rem; font-weight: 700;">Ready to stop wrestling with terminals?</h3>
       <p style="margin: 1rem 0; font-size: 1rem;">Thousands of server owners already switched. v1.0 is stable, fast, and actually fun to use.</p>
       <a href="#" class="btn-primary" style="font-size: 1.1rem;" id="downloadBtn2"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
@@ -360,23 +382,34 @@
 
 <script>
   (function() {
-    // Simple interval to update the demo player count – no animation, just text update
+    // Lightweight scroll reveal using Intersection Observer (GPU-friendly)
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target); // stop observing once revealed
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Simulate player count change in mockup (simple text update, no animation loop)
     let demoCount = 4;
     const playerSpan = document.getElementById('demoPlayers');
     if (playerSpan) {
       setInterval(() => {
         demoCount = demoCount === 7 ? 3 : demoCount + 1;
         playerSpan.innerText = demoCount;
-        // No extra DOM thrashing
       }, 4000);
     }
 
-    // Download toast (lightweight, minimal DOM impact)
+    // Download toast (minimal DOM)
     function showDownloadToast(e) {
       e.preventDefault();
-      let toast = document.querySelector('.dl-toast');
-      if (toast) toast.remove();
-      toast = document.createElement('div');
+      let existing = document.querySelector('.dl-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
       toast.className = 'dl-toast';
       toast.innerHTML = '<i class="fas fa-rocket"></i> 🎉 Sleezy Hosting v1.0 installer ready! (demo) Join waitlist for early access.';
       Object.assign(toast.style, {
@@ -392,15 +425,14 @@
         fontSize: '0.8rem',
         zIndex: '9999',
         fontWeight: '500',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-        backdropFilter: 'none',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        backdropFilter: 'none'
       });
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 3000);
     }
-    const btns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
-    btns.forEach(btn => btn.addEventListener('click', showDownloadToast));
+    const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
+    downloadBtns.forEach(btn => btn.addEventListener('click', showDownloadToast));
   })();
 </script>
 </body>
