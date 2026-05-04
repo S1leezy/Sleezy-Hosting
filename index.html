@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sleezy Hosting</title>
+  <title>Sleezy Hosting v1.0 – Run Minecraft Server. Zero Hassle.</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -47,15 +47,11 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
     @keyframes fadeInScale {
       0% { opacity: 0; transform: scale(0.95); }
       100% { opacity: 1; transform: scale(1); }
     }
-    /* Base card styles with hardware acceleration */
+    /* Base card styles */
     .feature-card, .step-card, .req-card, .mockup-card, .cta-box, .glass-card {
       background: #11161f;
       border: 1px solid #1f2a3a;
@@ -64,7 +60,6 @@
       will-change: transform;
       transform: translateZ(0);
     }
-    /* Hover animations */
     .feature-card:hover, .step-card:hover, .req-card:hover {
       transform: translateY(-5px) scale(1.02);
       border-color: #3b82f6;
@@ -76,12 +71,11 @@
     .mockup-card:hover {
       transform: translateY(-6px);
     }
-    /* Icon hover */
     .feature-icon {
       display: inline-block;
       transition: transform 0.2s ease;
     }
-    /* Buttons with pulse */
+    /* Buttons */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -107,7 +101,6 @@
     .btn-primary:active {
       transform: scale(0.98);
     }
-    /* Shimmer effect on button */
     .btn-primary::after {
       content: '';
       position: absolute;
@@ -139,7 +132,7 @@
       transform: translateY(-2px);
       border-color: #60a5fa;
     }
-    /* Hero with animated gradient background */
+    /* Hero */
     .hero {
       background: linear-gradient(135deg, #03070f, #0a101c, #0f172a);
       background-size: 200% 200%;
@@ -149,7 +142,6 @@
       position: relative;
       overflow: hidden;
     }
-    /* Floating orbs background */
     .hero::before {
       content: '';
       position: absolute;
@@ -210,7 +202,6 @@
     }
     .feature-card {
       padding: 1.5rem;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
     }
     /* Steps */
     .steps-grid {
@@ -296,7 +287,6 @@
       background: #3b82f6;
       transform: scale(1.05);
     }
-    /* Footer */
     footer {
       border-top: 1px solid #1f2a3a;
       background: #03070f;
@@ -318,7 +308,7 @@
       max-width: 600px;
       margin: 0 auto 2rem auto;
     }
-    /* Scroll reveal animation */
+    /* Scroll reveal */
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
@@ -329,7 +319,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-    /* Lightweight particle system (few particles) */
+    /* Lightweight particles */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -345,7 +335,6 @@
       90% { opacity: 0.4; }
       100% { transform: translateY(-20vh) translateX(40px) rotate(360deg); opacity: 0; }
     }
-    /* Responsive */
     @media (max-width: 850px) {
       .hero h1 { font-size: 2.2rem; }
       .hero-content { flex-direction: column; }
@@ -382,7 +371,6 @@
   </style>
 </head>
 <body>
-<!-- Lightweight background particles -->
 <div id="particles"></div>
 
 <div class="hero">
@@ -392,7 +380,7 @@
       <h1>Run Your Minecraft Server.<br>Zero Hassle.</h1>
       <p>No terminal commands, no Java fights, no config headaches. Just a clean desktop app with one-click controls, RAM slider, player manager, and live console.</p>
       <div class="btn-group">
-        <a href="#" class="btn-primary" id="downloadBtn"><i class="fab fa-windows"></i> Download for Windows</a>
+        <a href="https://download947.mediafire.com/le0f5iuls9dg8BlNCCsUXXvHFTYy9gF-RTLPGojUlgdLdch_Zc2N5Uie9K5fchoaJp_WBills0gB7fTLTwDGM0lXrYq7KvI6tSFywnMaVLyxWyrjMwt4J62h4xzENpTxWHzSQo6w6F_wmXqrHg2QLqwjCgjaoByt4jcocyjfhyDwp1w/rqdagx3tn26qs8x/SleezyHosting.exe" class="btn-primary" download><i class="fab fa-windows"></i> Download for Windows</a>
         <a href="#" class="btn-outline"><i class="fab fa-apple"></i> macOS & Linux</a>
       </div>
       <div><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Works with Paper, Forge, Fabric, Vanilla — even your weird modpack</div>
@@ -465,7 +453,7 @@
     <div class="cta-box fade-up" style="padding: 2rem; background: #11161f; border-radius: 1rem; border: 1px solid #1f2a3a;">
       <h3 style="font-size: 1.8rem; font-weight: 700;">Ready to stop wrestling with terminals?</h3>
       <p style="margin: 1rem 0; font-size: 1rem;">Thousands of server owners already switched. v1.0 is stable, fast, and actually fun to use.</p>
-      <a href="#" class="btn-primary" style="font-size: 1.1rem;" id="downloadBtn2"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
+      <a href="https://download947.mediafire.com/le0f5iuls9dg8BlNCCsUXXvHFTYy9gF-RTLPGojUlgdLdch_Zc2N5Uie9K5fchoaJp_WBills0gB7fTLTwDGM0lXrYq7KvI6tSFywnMaVLyxWyrjMwt4J62h4xzENpTxWHzSQo6w6F_wmXqrHg2QLqwjCgjaoByt4jcocyjfhyDwp1w/rqdagx3tn26qs8x/SleezyHosting.exe" class="btn-primary" style="font-size: 1.1rem;" download><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
       <p style="margin-top: 1rem; font-size: 0.7rem;">No ads, no data collection — we hate that stuff too.</p>
     </div>
   </div>
@@ -488,7 +476,7 @@
 
 <script>
   (function() {
-    // Scroll reveal with Intersection Observer (smooth)
+    // Scroll reveal
     const fadeElements = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -507,13 +495,12 @@
       setInterval(() => {
         demoCount = demoCount === 7 ? 3 : demoCount + 1;
         playerSpan.innerText = demoCount;
-        // tiny scale pop animation
         playerSpan.style.transform = 'scale(1.1)';
         setTimeout(() => { playerSpan.style.transform = ''; }, 150);
       }, 3500);
     }
 
-    // Lightweight background particles (few, performant)
+    // Lightweight background particles
     function createParticles() {
       const container = document.getElementById('particles');
       if (!container) return;
@@ -532,41 +519,7 @@
     }
     createParticles();
 
-    // Download toast with animation
-    function showDownloadToast(e) {
-      e.preventDefault();
-      let existing = document.querySelector('.dl-toast');
-      if (existing) existing.remove();
-      const toast = document.createElement('div');
-      toast.className = 'dl-toast';
-      toast.innerHTML = '<i class="fas fa-rocket"></i> 🎉 Sleezy Hosting v1.0 installer ready! (demo) Join waitlist for early access.';
-      Object.assign(toast.style, {
-        position: 'fixed',
-        bottom: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#0f172a',
-        color: 'white',
-        padding: '0.7rem 1.5rem',
-        borderRadius: '40px',
-        border: '1px solid #3b82f6',
-        fontSize: '0.8rem',
-        zIndex: '9999',
-        fontWeight: '500',
-        whiteSpace: 'nowrap',
-        animation: 'fadeInScale 0.2s ease'
-      });
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-50%) scale(0.9)';
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    }
-    const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadBtn2');
-    downloadBtns.forEach(btn => btn.addEventListener('click', showDownloadToast));
-
-    // Add hover animation for footer icons
+    // Footer icon hover effect
     document.querySelectorAll('footer a').forEach(link => {
       link.addEventListener('mouseenter', () => {
         link.style.transform = 'translateY(-3px)';
