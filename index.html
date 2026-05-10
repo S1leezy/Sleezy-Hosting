@@ -26,7 +26,6 @@
       margin: 0 auto;
       padding: 0 2rem;
     }
-    /* ========== ANIMATIONS ========== */
     @keyframes float {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-8px); }
@@ -51,7 +50,6 @@
       0% { opacity: 0; transform: scale(0.95); }
       100% { opacity: 1; transform: scale(1); }
     }
-    /* Base card styles */
     .feature-card, .step-card, .req-card, .mockup-card, .cta-box, .glass-card {
       background: #11161f;
       border: 1px solid #1f2a3a;
@@ -75,7 +73,6 @@
       display: inline-block;
       transition: transform 0.2s ease;
     }
-    /* Buttons */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -126,13 +123,17 @@
       font-weight: 500;
       text-decoration: none;
       transition: all 0.2s;
+      cursor: pointer;
     }
-    .btn-outline:hover {
-      background: rgba(59,130,246,0.15);
-      transform: translateY(-2px);
-      border-color: #60a5fa;
+    .btn-outline.coming-soon {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-color: #4a5568;
     }
-    /* Hero */
+    .btn-outline.coming-soon:hover {
+      transform: none;
+      background: transparent;
+    }
     .hero {
       background: linear-gradient(135deg, #03070f, #0a101c, #0f172a);
       background-size: 200% 200%;
@@ -193,7 +194,6 @@
       border: none;
       animation: pulse 2s infinite;
     }
-    /* Features grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -203,7 +203,6 @@
     .feature-card {
       padding: 1.5rem;
     }
-    /* Steps */
     .steps-grid {
       display: flex;
       flex-wrap: wrap;
@@ -235,7 +234,6 @@
       transform: scale(1.1);
       animation: none;
     }
-    /* Requirements */
     .reqs-flex {
       display: flex;
       flex-wrap: wrap;
@@ -257,7 +255,6 @@
     .req-card:hover i {
       transform: translateY(-4px);
     }
-    /* Mockup card */
     .mockup-card {
       padding: 1.2rem;
       transition: transform 0.3s ease;
@@ -308,7 +305,6 @@
       max-width: 600px;
       margin: 0 auto 2rem auto;
     }
-    /* Scroll reveal */
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
@@ -319,7 +315,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-    /* Lightweight particles */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -368,6 +363,14 @@
       border-color: #1f2a3a;
       margin: 1rem 0;
     }
+    .coming-soon-badge {
+      background: #f59e0b20;
+      color: #f59e0b;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2rem;
+      margin-left: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -380,9 +383,9 @@
       <h1>Run Your Minecraft Server.<br>Zero Hassle.</h1>
       <p>No terminal commands, no Java fights, no config headaches. Just a clean desktop app with one-click controls, RAM slider, player manager, and live console.</p>
       <div class="btn-group">
-        <!-- CORRECT GITHUB DOWNLOAD LINK -->
-        <a href="https://github.com/S1leezy/Sleezy-Hosting/releases/download/V1.0/Sleezy.Hosting.exe" class="btn-primary"><i class="fab fa-windows"></i> Download for Windows</a>
-        <a href="#" class="btn-outline"><i class="fab fa-apple"></i> macOS & Linux</a>
+        <a href="https://github.com/S1leezy/Sleezy-Hosting/releases/download/V1.1/Sleezy.Hosting.exe" class="btn-primary"><i class="fab fa-windows"></i> Download for Windows</a>
+        <div class="btn-outline coming-soon"><i class="fab fa-apple"></i> macOS <span class="coming-soon-badge">Soon</span></div>
+        <div class="btn-outline coming-soon"><i class="fab fa-linux"></i> Linux <span class="coming-soon-badge">Soon</span></div>
       </div>
       <div><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Works with Paper, Forge, Fabric, Vanilla — even your weird modpack</div>
     </div>
@@ -442,8 +445,8 @@
     </div>
     <div class="reqs-flex">
       <div class="req-card fade-up"><i class="fab fa-windows"></i><h3>Windows</h3><p>10 / 11, 64-bit<br>2GB RAM (4GB rec)</p></div>
-      <div class="req-card fade-up"><i class="fab fa-apple"></i><h3>macOS</h3><p>11+ (Intel/M1/M2)<br>4GB rec for modded servers</p></div>
-      <div class="req-card fade-up"><i class="fab fa-linux"></i><h3>Linux</h3><p>Ubuntu 20.04+, Debian<br>AppImage / .deb</p></div>
+      <div class="req-card fade-up"><i class="fab fa-apple"></i><h3>macOS</h3><p>Coming Soon<br>Apple Silicon + Intel</p></div>
+      <div class="req-card fade-up"><i class="fab fa-linux"></i><h3>Linux</h3><p>Coming Soon<br>Ubuntu/Debian</p></div>
     </div>
     <div class="glass-card fade-up" style="text-align: center; max-width: 600px; margin: 1rem auto;">
       <i class="fas fa-check-circle" style="color:#3b82f6;"></i> <strong>Bundled Java runtime</strong> — you don't need to install anything else.
@@ -454,7 +457,6 @@
     <div class="cta-box fade-up" style="padding: 2rem; background: #11161f; border-radius: 1rem; border: 1px solid #1f2a3a;">
       <h3 style="font-size: 1.8rem; font-weight: 700;">Ready to stop wrestling with terminals?</h3>
       <p style="margin: 1rem 0; font-size: 1rem;">Thousands of server owners already switched. v1.0 is stable, fast, and actually fun to use.</p>
-      <!-- SECOND BUTTON WITH CORRECT GITHUB LINK -->
       <a href="https://github.com/S1leezy/Sleezy-Hosting/releases/download/V1.0/Sleezy.Hosting.exe" class="btn-primary" style="font-size: 1.1rem;"><i class="fas fa-download"></i> Download Sleezy Hosting 1.0</a>
       <p style="margin-top: 1rem; font-size: 0.7rem;">No ads, no data collection — we hate that stuff too.</p>
     </div>
@@ -478,7 +480,6 @@
 
 <script>
   (function() {
-    // Scroll reveal (lightweight)
     const fadeElements = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -490,7 +491,6 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
     fadeElements.forEach(el => observer.observe(el));
 
-    // Animated player count in mockup
     let demoCount = 4;
     const playerSpan = document.getElementById('demoPlayers');
     if (playerSpan) {
@@ -502,7 +502,6 @@
       }, 3500);
     }
 
-    // Lightweight background particles
     function createParticles() {
       const container = document.getElementById('particles');
       if (!container) return;
@@ -521,7 +520,6 @@
     }
     createParticles();
 
-    // Footer icon hover effect
     document.querySelectorAll('footer a').forEach(link => {
       link.addEventListener('mouseenter', () => {
         link.style.transform = 'translateY(-3px)';
